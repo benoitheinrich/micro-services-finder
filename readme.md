@@ -70,12 +70,13 @@ Usage: micro-services-finder [options]
 
 ```
 
-Examples:
+**Examples:**
 
- micro-services-finder -s /path/to/mycode -f png
+This will parse the files located in the /path/to/mycode folder, and it'll generate
+a list of png files in the current directory.
 
-     This will parse the files located in the /path/to/mycode folder, and it'll generate
-     a list of png files in the current directory.
+    $ micro-services-finder -s /path/to/mycode -f png
+
 
 # Under the hoods
 
