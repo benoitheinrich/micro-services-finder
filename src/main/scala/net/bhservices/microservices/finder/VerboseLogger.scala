@@ -13,6 +13,7 @@ object VerboseLogger {
   def log(msg: => String): Unit = {
     Application.config match {
       case Some(c: Config) if c.verbose => println(msg)
+      case _ =>
     }
   }
 }

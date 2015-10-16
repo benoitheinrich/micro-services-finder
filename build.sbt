@@ -16,7 +16,13 @@ lazy val root = (project in file(".")).
       scopt,
       scalatest
     ),
-    testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports")
+
+    // Test options required to allow circleCI to find generated junit XML test reports.
+    testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports"),
+
+    // Provides a name of the generated jar
+    assemblyJarName in assembly := "micro-services-finder.jar",
+    test in assembly := {}
   )
 
 

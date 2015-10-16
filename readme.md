@@ -34,7 +34,11 @@ In fact the tool allows you to generate different output types using the `-f` op
 
 The tool comes with a simple CLI executable that accepts many different options.
 
-You should really play with the `micro-services-finder --help` to see all it can do
+The main executable is started using the following command:
+
+    $ java -jar target/scala-2.11/micro-services-finder.jar
+
+You should really play with the `--help` to see all it can do
 for you.
 
 Here is an extract of the help command:
@@ -75,7 +79,7 @@ Usage: micro-services-finder [options]
 This will parse the files located in the /path/to/mycode folder, and it'll generate
 a list of png files in the current directory.
 
-    $ micro-services-finder -s /path/to/mycode -f png
+    $ java -jar target/scala-2.11/micro-services-finder.jar -s /path/to/mycode -f png
 
 
 # Under the hoods
