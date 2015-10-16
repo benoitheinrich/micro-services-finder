@@ -26,7 +26,7 @@ class CommandLineParser {
 
     val INDENT = " " * 8
     val singleLine = str.stripMargin.replaceAll("\n", " ")
-    val wrappedText = wrap(singleLine, 80)
+    val wrappedText = wrap(singleLine, 70)
     val wrappedLines = wrappedText split "\n"
     val indentedLines = wrappedLines mkString "\n" + INDENT
 
