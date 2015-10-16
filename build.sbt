@@ -4,10 +4,18 @@ lazy val commonSettings = Seq(
   scalaVersion := "2.11.7"
 )
 
+// Dependencies
+val scopt = "com.github.scopt" %% "scopt" % "3.3.0"
+val scalatest = "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
+
 lazy val root = (project in file(".")).
   settings(commonSettings: _*).
   settings(
-    name := "micro-services-finder"
+    name := "micro-services-finder",
+    libraryDependencies ++= Seq(
+      scopt,
+      scalatest
+    )
   )
 
 
