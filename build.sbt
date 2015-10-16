@@ -15,7 +15,8 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= Seq(
       scopt,
       scalatest
-    )
+    ),
+    testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports")
   )
 
 
