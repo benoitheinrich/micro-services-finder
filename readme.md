@@ -43,20 +43,26 @@ Here is an extract of the help command:
 Usage: micro-services-finder [options]
 
   -c | --clear
-         If specified indicates the tool should clear all caches prior running.
+        If specified indicates the tool should clear all caches prior running.
 
   -f <value> | --format <value>
-         If specified indicates the output format to be used by the tool.
-         Format are passed directly to the graphviz command to use and accepts any value as supported by your graphviz installation. By default it generates a .dot file format.
+        If specified indicates the output format to be used by the tool. Format are passed directly to
+        the graphviz command to use and accepts any value as supported by your graphviz installation.
+        By default it generates a .dot file format.
 
   -o <value> | --output <value>
-         If specified indicates the place where the generated files will be stored. By default it generates them in the current directory. The -o option is also used to indicate where the index files will be generated.
+        If specified indicates the place where the generated files will be stored. By default it
+        generates them in the current directory. The -o option is also used to indicate where the index
+        files will be generated.
 
   -s <value> | --source <value>
-         If specified indicates where to analyse source code from.  By default it analyses the source code from the current directory. The -s option is also used to indicate where to locate the configuration file to be used by the tool.
+        If specified indicates where to analyse source code from. By default it analyses the source
+        code from the current directory. The -s option is also used to indicate where to locate the
+        configuration file to be used by the tool.
 
   -v | --verbose
-         If specified indicates the tool needs to generate useful information to the reader to understand what's happening.
+        If specified indicates the tool needs to generate useful information to the reader to
+        understand what's happening.
 
   --help
         prints this usage text
