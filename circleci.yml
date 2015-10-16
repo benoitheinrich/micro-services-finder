@@ -1,0 +1,13 @@
+## Customize the test machine
+machine:
+  timezone:
+    UTC
+
+## Customize dependencies for building sbt 0.13.9
+dependencies:
+  pre:
+    - wget -q https://dl.bintray.com/sbt/debian/sbt-0.13.9.deb
+    - sudo dpkg -i sbt-0.13.9.deb
+  cache_directories:
+    - "~/.ivy2"
+    - "~/.sbt"
