@@ -145,7 +145,7 @@ The first thing to do is to check the type of implementation and see if maybe on
 implementation is a **Mock Service**.
 
 A **Mock Service** is similar to a real implementation module, except that in general the
-name of the class will start by the word `ock`.
+name of the class will start by the word `Mock`.
 
 **Mock Services** will have to be ignored by the tool as they can't be delivered as part of
 a microservice.
