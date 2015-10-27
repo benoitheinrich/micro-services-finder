@@ -1,6 +1,6 @@
 package net.bhservices.microservices.finder
 
-import net.bhservices.microservices.finder.Application.Config
+import net.bhservices.microservices.finder.config.ConfigProvider.Config
 
 /**
  * Utility use to log verbose messages to standard output.

@@ -7,6 +7,6 @@ package net.bhservices.microservices.finder.definitions
  * @param module the name of the module containing that service.
  * @param extendsList the list of services that are extended by this service.
  */
-case class ServiceDefinition(name: String,
-                             module: String,
-                             extendsList: Seq[String] = Seq.empty)
+case class ServiceDefinition(name: ServiceDefinitionName,
+                             module: ModuleName,
+                             extendsList: Seq[ServiceDefinitionName] = Seq.empty)
