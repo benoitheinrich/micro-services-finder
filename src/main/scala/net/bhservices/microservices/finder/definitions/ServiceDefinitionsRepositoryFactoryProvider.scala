@@ -8,7 +8,9 @@ import net.bhservices.microservices.finder.config.ConfigProvider
  * Service used to generate service definitions.
  */
 trait ServiceDefinitionsRepositoryFactoryProvider {
-  deps: CacheProvider[Seq[ServiceDefinition]] with ConfigProvider =>
+  deps: CacheProvider[Seq[ServiceDefinition]]
+    with ServiceDefinitionScannerProvider
+    with ConfigProvider =>
 
   val factory = new ServiceDefinitionsRepositoryFactory()
 
@@ -21,7 +23,7 @@ trait ServiceDefinitionsRepositoryFactoryProvider {
     def generateIfNeeded(): ServiceDefinitionsRepository = {
       if (config.clear || !deps.cache.isCacheAvailable) {
         VerboseLogger.log(s"scanning service definitions from ${config.source}")
-        val definitions = scanDefinitions
+        val definitions = scanner.scanDefinitions
         new ServiceDefinitionsRepository(definitions)
       } else {
         val definitions = deps.cache.load
@@ -36,17 +38,6 @@ trait ServiceDefinitionsRepositoryFactoryProvider {
     def saveDefinitions(repository: ServiceDefinitionsRepository): Unit = {
       cache.save(repository.definitions)
     }
-
-    /**
-     * Scan the definitions from the source directory.
-     * @return the list of scanned definitions.
-     */
-    private def scanDefinitions: Seq[ServiceDefinition] = {
-      Seq(ServiceDefinition(
-        name = "test",
-        module = "test.jar"
-      ))
-    }
-  }
+ }
 
 }

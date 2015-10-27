@@ -4,7 +4,7 @@ import java.io.File
 
 import net.bhservices.microservices.finder.cache.FileCacheProvider
 import net.bhservices.microservices.finder.config.ConfigProvider
-import net.bhservices.microservices.finder.definitions.{ServiceDefinition, ServiceDefinitionsRepositoryFactoryProvider}
+import net.bhservices.microservices.finder.definitions.{ServiceDefinition, ServiceDefinitionsRepositoryFactoryProvider, TestServiceDefinitionScannerProvider}
 import net.bhservices.microservices.finder.marshaller.JsonMarshallerProvider
 
 object Main extends App {
@@ -17,6 +17,7 @@ object Main extends App {
         extends ServiceDefinitionsRepositoryFactoryProvider
         with FileCacheProvider[Seq[ServiceDefinition]]
         with JsonMarshallerProvider[Seq[ServiceDefinition]]
+        with TestServiceDefinitionScannerProvider
         with ConfigProvider {
 
         override def config = Application.config.get
