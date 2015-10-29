@@ -34,7 +34,7 @@ class FileCacheProviderTest extends FeatureSpec with GivenWhenThen with Matchers
           |    "name":"ClassA",
           |    "module":"module-a",
           |    "extendsList":[
-          |
+          |      
           |    ]
           |  }
           |]""".stripMargin.trim
