@@ -2,12 +2,10 @@ package net.bhservices.microservices.finder.config
 
 import java.io.File
 
+import net.bhservices.microservices.finder.FileUtility.currentDir
+
 
 object ConfigProvider {
-  private def currentDir: File = {
-    new File(System.getProperty("user.dir"))
-  }
-
   /**
    * Configuration of the parsed item
    */

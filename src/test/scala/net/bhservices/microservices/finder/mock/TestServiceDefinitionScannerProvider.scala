@@ -1,4 +1,6 @@
-package net.bhservices.microservices.finder.definitions
+package net.bhservices.microservices.finder.mock
+
+import net.bhservices.microservices.finder.definitions.{ServiceDefinition, ServiceDefinitionScannerProvider}
 
 /**
  * A Simple implementation wich always return just one test service

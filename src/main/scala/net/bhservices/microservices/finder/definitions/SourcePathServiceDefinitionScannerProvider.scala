@@ -2,7 +2,7 @@ package net.bhservices.microservices.finder.definitions
 
 import java.io.File
 
-import net.bhservices.microservices.finder.VerboseLogger
+import net.bhservices.microservices.finder.{FileUtility, VerboseLogger}
 
 import scala.io.Source
 
@@ -25,12 +25,7 @@ trait SourcePathServiceDefinitionScannerProvider extends ServiceDefinitionScanne
     override def scanDefinitions: Seq[ServiceDefinition] = {
       val apiJavaFilePattern = """.*/([^/]*)/src/main/.*/([^/]*).java""".r
 
-      def getFileTree(f: File): Stream[File] =
-        f #:: (if (f.isDirectory) f.listFiles().toStream.flatMap(getFileTree)
-        else Stream.empty)
-
-
-      val filesAndBaseDefinition: Seq[(File, ServiceDefinition)] = getFileTree(sourcePath).filter(_.getName.endsWith(".java")).flatMap { f =>
+      val filesAndBaseDefinition: Seq[(File, ServiceDefinition)] = FileUtility.getFileTree(sourcePath).filter(_.getName.endsWith(".java")).flatMap { f =>
         f.getAbsoluteFile.getPath match {
           case apiJavaFilePattern(moduleName, className) =>
             Some((f, ServiceDefinition(name = className, module = moduleName)))

@@ -24,10 +24,10 @@ trait ServiceDefinitionsRepositoryFactoryProvider {
       if (config.clear || !deps.cache.isCacheAvailable) {
         VerboseLogger.log(s"scanning service definitions from ${config.source}")
         val definitions = scanner.scanDefinitions
-        new ServiceDefinitionsRepository(ServiceDefinitionsRepository.index(definitions))
+        new ServiceDefinitionsRepository(definitions)
       } else {
         val definitions = deps.cache.load
-        new ServiceDefinitionsRepository(ServiceDefinitionsRepository.index(definitions))
+        new ServiceDefinitionsRepository(definitions)
       }
     }
 
@@ -36,7 +36,7 @@ trait ServiceDefinitionsRepositoryFactoryProvider {
      * @param repository the repository containing the definitions to be saved.
      */
     def saveDefinitions(repository: ServiceDefinitionsRepository): Unit = {
-      cache.save(repository.definitions.values.toSeq)
+      cache.save(repository.definitions)
     }
   }
 
