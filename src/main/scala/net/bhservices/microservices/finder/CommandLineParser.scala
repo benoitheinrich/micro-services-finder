@@ -7,7 +7,7 @@ import java.io.File
  */
 class CommandLineParser {
 
-  import net.bhservices.microservices.finder.Application.Config
+  import net.bhservices.microservices.finder.config.ConfigProvider.Config
   import scopt.OptionParser
 
 

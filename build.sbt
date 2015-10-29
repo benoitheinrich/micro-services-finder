@@ -6,6 +6,8 @@ lazy val commonSettings = Seq(
 
 // Dependencies
 val scopt = "com.github.scopt" %% "scopt" % "3.3.0"
+val json4sNative = "org.json4s" %% "json4s-native" % "3.2.10"
+val json4sJackson = "org.json4s" %% "json4s-jackson" % "3.2.10"
 val scalatest = "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
 
 lazy val root = (project in file(".")).
@@ -14,6 +16,8 @@ lazy val root = (project in file(".")).
     name := "micro-services-finder",
     libraryDependencies ++= Seq(
       scopt,
+      json4sNative,
+      json4sJackson,
       scalatest
     ),
 

@@ -2,7 +2,7 @@ package net.bhservices.microservices.finder
 
 import java.io.File
 
-import net.bhservices.microservices.finder.Application.Config
+import net.bhservices.microservices.finder.config.ConfigProvider.Config
 import org.scalatest.{FeatureSpec, GivenWhenThen, Matchers}
 
 class CommandLineParserTest extends FeatureSpec with GivenWhenThen with Matchers {
@@ -19,7 +19,7 @@ class CommandLineParserTest extends FeatureSpec with GivenWhenThen with Matchers
       val config = new CommandLineParser().parseConfig(args)
 
       Then("the config should be using all defaults")
-      config shouldBe Some(Application.Config())
+      config shouldBe Some(Config())
     }
 
     // This scenario has to be ignored as right now scopt does allow to override the sys.exit when help is called
