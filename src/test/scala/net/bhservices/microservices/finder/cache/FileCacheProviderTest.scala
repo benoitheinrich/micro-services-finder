@@ -27,7 +27,17 @@ class FileCacheProviderTest extends FeatureSpec with GivenWhenThen with Matchers
       val content = Source.fromFile(tempFile).mkString
 
       Then("the service definition should be saved as JSON in the temporary file")
-      content shouldBe """[{"name":"ClassA","module":"module-a","extendsList":[]}]"""
+      content shouldBe
+        """
+          |[
+          |  {
+          |    "name":"ClassA",
+          |    "module":"module-a",
+          |    "extendsList":[
+          |
+          |    ]
+          |  }
+          |]""".stripMargin.trim
     }
 
 

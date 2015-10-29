@@ -18,7 +18,15 @@ class JsonMarshallerTest extends FeatureSpec with GivenWhenThen with Matchers {
       val result = marshaller.marshal(ServiceDefinition(name = "ClassA", module = "module-a", extendsList = Seq("ClassB")))
 
       Then("the result should be marshalled as JSON")
-      result shouldBe """{"name":"ClassA","module":"module-a","extendsList":["ClassB"]}"""
+      result shouldBe
+        """
+          |{
+          |  "name":"ClassA",
+          |  "module":"module-a",
+          |  "extendsList":[
+          |    "ClassB"
+          |  ]
+          |}""".stripMargin.trim
     }
 
     scenario("Unmarshall a single object from JSON") {
@@ -27,7 +35,15 @@ class JsonMarshallerTest extends FeatureSpec with GivenWhenThen with Matchers {
       val marshaller = provider.marshaller
 
       When("a service definition is unmarshalled")
-      val result = marshaller.unmarshal( """{"name":"ClassA","module":"module-a","extendsList":["ClassB"]}""")
+      val result = marshaller.unmarshal(
+        """
+          |{
+          |  "name":"ClassA",
+          |  "module":"module-a",
+          |  "extendsList":[
+          |    "ClassB"
+          |  ]
+          |}""".stripMargin.trim)
 
       Then("the result should be unmarshalled as a service definition")
       result shouldBe ServiceDefinition(name = "ClassA", module = "module-a", extendsList = Seq("ClassB"))
@@ -42,7 +58,17 @@ class JsonMarshallerTest extends FeatureSpec with GivenWhenThen with Matchers {
       val result = marshaller.marshal(Seq(ServiceDefinition(name = "ClassA", module = "module-a", extendsList = Seq("ClassB"))))
 
       Then("the result should be marshalled as JSON")
-      result shouldBe """[{"name":"ClassA","module":"module-a","extendsList":["ClassB"]}]"""
+      result shouldBe
+        """
+          |[
+          |  {
+          |    "name":"ClassA",
+          |    "module":"module-a",
+          |    "extendsList":[
+          |      "ClassB"
+          |    ]
+          |  }
+          |]""".stripMargin.trim
     }
 
     scenario("Unmarshall a sequence of objects from JSON") {
@@ -51,7 +77,18 @@ class JsonMarshallerTest extends FeatureSpec with GivenWhenThen with Matchers {
       val marshaller = provider.marshaller
 
       When("a service definition is unmarshalled")
-      val result = marshaller.unmarshal( """[{"name":"ClassA","module":"module-a","extendsList":["ClassB"]}]""")
+      val result = marshaller.unmarshal(
+        """
+          |[
+          |  {
+          |    "name":"ClassA",
+          |    "module":"module-a",
+          |    "extendsList":[
+          |      "ClassB"
+          |    ]
+          |  }
+          |]""".stripMargin.trim
+      )
 
       Then("the result should be unmarshalled as a sequence of service definitions")
       result shouldBe Seq(ServiceDefinition(name = "ClassA", module = "module-a", extendsList = Seq("ClassB")))

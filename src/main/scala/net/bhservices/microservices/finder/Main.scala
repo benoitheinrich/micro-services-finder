@@ -4,7 +4,7 @@ import java.io.File
 
 import net.bhservices.microservices.finder.cache.FileCacheProvider
 import net.bhservices.microservices.finder.config.ConfigProvider
-import net.bhservices.microservices.finder.definitions.{ServiceDefinition, ServiceDefinitionsRepositoryFactoryProvider, TestServiceDefinitionScannerProvider}
+import net.bhservices.microservices.finder.definitions.{SourcePathServiceDefinitionScannerProvider, ServiceDefinition, ServiceDefinitionsRepositoryFactoryProvider, TestServiceDefinitionScannerProvider}
 import net.bhservices.microservices.finder.marshaller.JsonMarshallerProvider
 
 object Main extends App {
@@ -17,12 +17,14 @@ object Main extends App {
         extends ServiceDefinitionsRepositoryFactoryProvider
         with FileCacheProvider[Seq[ServiceDefinition]]
         with JsonMarshallerProvider[Seq[ServiceDefinition]]
-        with TestServiceDefinitionScannerProvider
+        with SourcePathServiceDefinitionScannerProvider
         with ConfigProvider {
 
         override def config = Application.config.get
 
         override val cacheFile = new File(config.source, "service-definitions.json")
+
+        override def sourcePath = config.source
       }
 
       val factory = Dependencies.factory

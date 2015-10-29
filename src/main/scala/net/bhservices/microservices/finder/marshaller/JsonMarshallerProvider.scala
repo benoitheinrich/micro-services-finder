@@ -11,9 +11,9 @@ trait JsonMarshallerProvider[T <: AnyRef] extends MarshallerProvider[T] {
   private final class JsonMarshaller(implicit m: Manifest[T]) extends Marshaller {
     override def marshal(t: T): String = {
       import org.json4s._
-      import org.json4s.native.Serialization.write
+      import org.json4s.native.Serialization.writePretty
       implicit val formats = DefaultFormats
-      write[T](t)
+      writePretty[T](t)
     }
 
     override def unmarshal(content: String): T = {
