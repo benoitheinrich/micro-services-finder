@@ -9,8 +9,6 @@ class SourcePathServiceDefinitionScannerTest extends FeatureSpec with GivenWhenT
   info("As a User")
   info("I want to be able to find java source files")
 
-  //Application.setConfig(Config(verbose = true))
-
   feature("Scanning single module Java project") {
     scenario("Ignore Pojo and Test classes") {
       Given("a Source path scanner")

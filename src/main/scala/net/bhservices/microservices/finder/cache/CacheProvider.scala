@@ -5,7 +5,7 @@ import scala.reflect.Manifest
 /**
  * A provider for a cache of a given object type `T`.
  */
-trait CacheProvider[T <: AnyRef] {
+trait CacheProvider[T] {
   def cache(implicit m: Manifest[T]): Cache
 
   trait Cache {

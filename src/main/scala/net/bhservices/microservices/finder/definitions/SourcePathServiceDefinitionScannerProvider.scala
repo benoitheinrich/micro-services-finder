@@ -16,10 +16,37 @@ trait SourcePathServiceDefinitionScannerProvider extends ServiceDefinitionScanne
 
   class SourcePathServiceDefinitionScanner extends ServiceDefinitionScanner {
 
-    def extractDefinition(f: File, moduleName: String, className: String) = ServiceDefinition(name = className, moduleName)
+    import scala.language.postfixOps
+
+    /**
+     * Scan the definitions from the scanner.
+     * @return the list of scanned definitions.
+     */
+    override def scanDefinitions: Seq[ServiceDefinition] = {
+      val apiJavaFilePattern = """.*/([^/]*)/src/main/.*/([^/]*).java""".r
+
+      def getFileTree(f: File): Stream[File] =
+        f #:: (if (f.isDirectory) f.listFiles().toStream.flatMap(getFileTree)
+        else Stream.empty)
 
 
-    def parseDefinition(content: String, serviceDef: ServiceDefinition): Option[ServiceDefinition] = {
+      val filesAndBaseDefinition: Seq[(File, ServiceDefinition)] = getFileTree(sourcePath).filter(_.getName.endsWith(".java")).flatMap { f =>
+        f.getAbsoluteFile.getPath match {
+          case apiJavaFilePattern(moduleName, className) =>
+            Some((f, ServiceDefinition(name = className, module = moduleName)))
+          case _ => None
+        }
+      }
+
+      filesAndBaseDefinition.par flatMap {
+        case (f, serviceDef) =>
+          val content = Source.fromFile(f).getLines().mkString("\n")
+          parseDefinition(content, serviceDef)
+      } toList
+    }
+
+
+    private def parseDefinition(content: String, serviceDef: ServiceDefinition): Option[ServiceDefinition] = {
       val serviceNameMatcher = """(?s).*package\s+([^;\s]+)\s*;.*public\s+interface\s+([^\s{]*)[\s+{].*""".r
       val extendsMatcher = """(?s).*\s+extends\s+([^{]*)\s*\{.*""".r
       val importMatcher = """(?s).*import\s+([^;\s]+)\s*;""".r
@@ -52,39 +79,12 @@ trait SourcePathServiceDefinitionScannerProvider extends ServiceDefinitionScanne
             case _ =>
               Some(serviceDef.copy(name = fullClassName(packageName, serviceName)))
           }
-          VerboseLogger.log(s"Service definition match found: ${qualifiedService}")
+          VerboseLogger.log(s"Service definition match found: $qualifiedService")
 
           qualifiedService
         case _ =>
           None
       }
-    }
-
-    /**
-     * Scan the definitions from the scanner.
-     * @return the list of scanned definitions.
-     */
-    override def scanDefinitions: Seq[ServiceDefinition] = {
-      val apiJavaFilePattern = """.*/([^/]*)/src/main/.*/([^/]*).java""".r
-
-      def getFileTree(f: File): Stream[File] =
-        f #:: (if (f.isDirectory) f.listFiles().toStream.flatMap(getFileTree)
-        else Stream.empty)
-
-
-      val filesAndBaseDefinition: Seq[(File, ServiceDefinition)] = getFileTree(sourcePath).filter(_.getName.endsWith(".java")).flatMap { f =>
-        f.getAbsoluteFile.getPath match {
-          case apiJavaFilePattern(moduleName, className) =>
-            Some((f, extractDefinition(f, moduleName, className)))
-          case _ => None
-        }
-      }
-
-      filesAndBaseDefinition.par flatMap {
-        case (f, serviceDef) =>
-          val content = Source.fromFile(f).getLines().mkString("\n")
-          parseDefinition(content, serviceDef)
-      } toList
     }
   }
 

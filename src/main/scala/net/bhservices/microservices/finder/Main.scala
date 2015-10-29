@@ -4,7 +4,7 @@ import java.io.File
 
 import net.bhservices.microservices.finder.cache.FileCacheProvider
 import net.bhservices.microservices.finder.config.ConfigProvider
-import net.bhservices.microservices.finder.definitions.{SourcePathServiceDefinitionScannerProvider, ServiceDefinition, ServiceDefinitionsRepositoryFactoryProvider, TestServiceDefinitionScannerProvider}
+import net.bhservices.microservices.finder.definitions.{ServiceDefinition, ServiceDefinitionsRepositoryFactoryProvider, SourcePathServiceDefinitionScannerProvider}
 import net.bhservices.microservices.finder.marshaller.JsonMarshallerProvider
 
 object Main extends App {
